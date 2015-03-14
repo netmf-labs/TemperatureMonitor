@@ -1,0 +1,148 @@
+﻿@model TemperatureMonitor.ViewModels.DashboardViewModel
+@{
+    ViewBag.Title = "Temperature Monitor";
+}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="sub-header">
+        <i class="glyphicon glyphicon-blackboard"></i> Chart</h2>
+    <!-- CHART -->
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
+    </div>
+    <!-- /CHART -->
+    <p>
+    </p>
+    <!-- TEMPERATURE-->
+    <h2 class="sub-header">
+        <i class=" glyphicon glyphicon-list-alt"></i> Temperature Log</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Temperature
+                    </th>
+                    <th>
+                        Time
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var temp in Model.TemperatureSensors.SelectMany(sensor => sensor.Temperatures).Take(10))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => temp.TemperatureId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => temp.Value)
+                        </td>
+                        <td>
+                            @TimeSpan.FromTicks(temp.Time)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!--/TEMPERATURE-->
+    <p>
+    </p>
+    <h2 class="sub-header">
+        <i class="glyphicon glyphicon-scale"></i> Sensors</h2>
+    @Html.ActionLink("Create New", "Create")
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TemperatureSensors)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SensorId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                @Html.ActionLink("Edit | ", "Edit", new {id = item.SensorId})                                
+                                @Html.ActionLink("Delete | ", "Delete", new {id = item.SensorId})
+                            }
+                            @Html.ActionLink("Details", "Details", new { id = item.SensorId })
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript">
+    @{ var serializer = new System.Web.Script.Serialization.JavaScriptSerializer(); }
+    var array = @serializer.Serialize(Model.TemperatureValues);
+    $(function () {
+        $('#container').highcharts({
+            title: {
+                text: '',
+                x: -20
+            },
+            subtitle: {
+                text: '',
+                x: -20
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (°C)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '°C'
+            },
+            credits: {
+                enabled: 0
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Sensor1',
+                data: array
+            }, {
+                name: 'Sensor2',
+                data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1]
+            }]
+        });
+    });
+</script>

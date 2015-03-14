@@ -1,0 +1,8 @@
+D:\CSharp\Projects\TemperatureMonitor\TemperatureMonitor\bin\App_Data\SensorsDB.sdf
+D:\CSharp\Projects\TemperatureMonitor\TemperatureMonitor\bin\EntityFramework.dll
+D:\CSharp\Projects\TemperatureMonitor\TemperatureMonitor\bin\EntityFramework.xml
+D:\CSharp\Projects\TemperatureMonitor\TemperatureMonitor\obj\Debug\ResolveAssemblyReference.cache
+D:\CSharp\Projects\TemperatureMonitor\TemperatureMonitor\obj\Debug\TemperatureMonitor.dll
+D:\CSharp\Projects\TemperatureMonitor\TemperatureMonitor\obj\Debug\TemperatureMonitor.pdb
+D:\CSharp\Projects\TemperatureMonitor\TemperatureMonitor\bin\TemperatureMonitor.dll
+D:\CSharp\Projects\TemperatureMonitor\TemperatureMonitor\bin\TemperatureMonitor.pdb

@@ -1,0 +1,31 @@
+﻿@model TemperatureMonitor.Models.TemperatureSensor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+<h2>Details</h2>
+
+<fieldset>
+    <legend>TemperatureSensor</legend>
+
+    <div class="display-label"><b>Id:</b></div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SensorId)
+    </div>
+
+    <div class="display-label"><b>Name:</b></div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label"><b>Description:</b></div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Go Back", "Index")
+</p>
+</div>
